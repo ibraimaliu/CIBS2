@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horaires de Prières</title>
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: url('public/images/background2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 5px;
+            box-sizing: border-box;
+            color: antiquewhite;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .header img {
+            height: 150px;
+        }
+        #title {
+            font-size: 1.8em;
+            text-align: center;
+            margin-top: 5px;
+        }
+        #current-time {
+            font-size: 2.5em;
+        }
+        #date-info {
+            font-size: 2.5em;
+            text-align: center;
+        }
+        .prayer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            gap: 3px;
+            margin-top: 5px;
+            margin-left:-45px;
+            margin-right:-30px;
+        }
+        .prayer-box {
+            width: 175px;
+            height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: left;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.1em;
+            color: black;
+        }
+        .prayer-box h3 {
+            margin: 5px 0;
+            font-size: 1.3em;
+            color: black;
+        }
+        .prayer-box p {
+            margin: 15px 0;
+            font-size: 1.6em;
+            color: black;
+        }
+        
+        .highlight {
+            background-color: #1da006; /* Couleur de surbrillance */
+        }
+        #countdown {
+            font-size: 2.5em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center; /* Ajout pour centrer le texte horizontalement */
+            margin-top: 10px; /* Ajustement optionnel du margin-top pour l'espacement */
+}
+
+#quran-verse-container {
+
+width: 100%;
+
+overflow: normal;
+
+position: relative;
+
+color: #ffffff;
+
+padding: 10px;
+
+text-align: center;
+
+margin-top: 20px;
+
+}
+
+
+#quran-verse {
+
+font-size: 1.5em;
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+width: 200%; /* Augmente la largeur de l'élément */
+
+height: 200px; /* Définit une hauteur pour l'élément */
+
+white-space: normal; /* Définit comment le texte doit être affiché */
+
+overflow: auto; /* Définit comment le texte doit être affiché lorsque la largeur de l'élément est dépassée */
+
+animation: scroll-quran-verse 30s linear infinite;
+
+}
+
+@keyframes scroll-quran-verse {
+
+0% {
+
+    transform: translateX(0);
+
+}
+
+100% {
+
+    transform: translateX(-100%);
+
+}
+
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src='public/images/logo_cibs.jpg'>
+            <div id="title">CENTRE ISLAMIQUE DES BALKANAIS DE SION</div>
+            <div id="current-time">20:27</div> <!-- Suppression des secondes -->
+        </div>
+        <div id="date-info">
+            Aujourd'hui : <span id="gregorian-date"></span> - <span id="hijri-date"></span>
+        </div>
+        {% if prayer_times %}
+        <div class="prayer-grid">
+            <div class="prayer-box fajr">
+                <h3>Fajr</h3>
+                <p>{{ prayer_times["Fajr"] }}</p>
+            </div>
+            <div class="prayer-box mosque">
+                <h3>Prière mosquée</h3>
+                <p>{{ prayer_times["Prière à la mosquée"] }}</p>
+            </div>
+            <div class="prayer-box sunrise">
+                <h3>Levé du soleil</h3>
+                <p>{{ prayer_times["Levé du soleil"] }}</p>
+            </div>
+            <div class="prayer-box dhuhr">
+                <h3>Dhuhr</h3>
+                <p>{{ prayer_times["Dhuhr"] }}</p>
+            </div>
+            <div class="prayer-box asr">
+                <h3>Asr</h3>
+                <p>{{ prayer_times["Asr"] }}</p>
+            </div>
+            <div class="prayer-box maghrib">
+                <h3>Maghrib</h3>
+                <p>{{ prayer_times["Maghrib"] }}</p>
+            </div>
+            <div class="prayer-box isha">
+                <h3>Isha</h3>
+                <p>{{ prayer_times["Isha"] }}</p>
+            </div>
+        
+            
+        </div>
+        <p><div id="countdown"></div></p>
+        <div id="quran-verse-container">
+            <p id="quran-verse">
+                Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
+            </p>
+        </div>
+        
+        {% else %}
+        
+        <p>Aucune donnée disponible pour aujourd'hui.</p>
+        {% endif %}
+    </div>
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/hijri-date@2.1.1/dist/hijri-date.min.js"></script>
+    <script>
+        // Fonction pour obtenir la date du jour au format 'vendredi 21 juin 2024'
+        function getFormattedDate() {
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            var today = new Date();
+            return today.toLocaleDateString('fr-FR', options);
+        }
+
+        // Fonction pour convertir la date grégorienne en date hégirienne (hijri)
+        function convertToHijri(date) {
+            return '15 Dhu al-Hijjah 1445 AH'; // Exemple statique, à remplacer
+        }
+
+        // Fonction principale pour mettre à jour les informations de date
+        function updateDateInfo() {
+            var formattedGregorianDate = getFormattedDate();
+            var hijriDate = convertToHijri(new Date());
+            var dateInfoElement = document.getElementById('date-info');
+            dateInfoElement.innerHTML = formattedGregorianDate + ' - ' + hijriDate;
+        }
+
+        setInterval(updateTime, 60000); // Mise à jour toutes les minutes pour éviter l'affichage des secondes
+        updateDateInfo();
+
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+
+            // Format HH:MM sans les secondes
+            var timeString = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
+            document.getElementById('current-time').textContent = timeString;
+
+            // Calculer l'heure actuelle en minutes depuis minuit
+            var currentTime = hours * 60 + minutes;
+
+            // Convertir les heures de prière en minutes depuis minuit
+            var fajrTime = convertTimeStringToMinutes('{{ prayer_times["Fajr"] }}');
+            var mosqueTime = convertTimeStringToMinutes('{{ prayer_times["Prière à la mosquée"] }}');
+            var sunriseTime = convertTimeStringToMinutes('{{ prayer_times["Levé du soleil"] }}');
+            var dhuhrTime = convertTimeStringToMinutes('{{ prayer_times["Dhuhr"] }}');
+            var asrTime = convertTimeStringToMinutes('{{ prayer_times["Asr"] }}');
+            var maghribTime = convertTimeStringToMinutes('{{ prayer_times["Maghrib"] }}');
+            var ishaTime = convertTimeStringToMinutes('{{ prayer_times["Isha"] }}');
+
+            var prayerTimes = [
+                { name: 'Fajr', time: fajrTime },
+                { name: 'Prière à la mosquée', time: mosqueTime },
+                { name: 'Levé du soleil', time: sunriseTime },
+                { name: 'Dhuhr', time: dhuhrTime },
+                { name: 'Asr', time: asrTime },
+                { name: 'Maghrib', time: maghribTime },
+                { name: 'Isha', time: ishaTime }
+            ];
+
+            // Mettre en évidence la prière en cours
+            for (var i = 0; i < prayerTimes.length; i++) {
+                var prayer = prayerTimes[i];
+                var nextPrayer = prayerTimes[i + 1];
+
+                if (!nextPrayer || (currentTime >= prayer.time && currentTime < nextPrayer.time)) {
+                    highlightPrayer(prayer.name);
+                    break;
+                }
+            }
+        }
+
+        // Convertir une chaîne de temps (HH:MM) en minutes depuis minuit
+        function convertTimeStringToMinutes(timeString) {
+            var timeParts = timeString.split(':');
+            var hours = parseInt(timeParts[0], 10);
+            var minutes = parseInt(timeParts[1], 10);
+            return hours * 60 + minutes;
+        }
+
+        // Mettre en évidence la prière en cours
+        function highlightPrayer(prayerName) {
+            var prayerBoxes = document.querySelectorAll('.prayer-box');
+
+            prayerBoxes.forEach(box => {
+                var prayerTitle = box.querySelector('h3').textContent.trim();
+                if (prayerTitle === prayerName) {
+                    box.classList.add('highlight');
+                } else {
+                    box.classList.remove('highlight');
+                }
+            });
+        }
+
+        // Appel initial de la fonction pour s'assurer que l'heure est affichée sans les secondes
+        updateTime();
+    
+        // Fonction pour mettre à jour le compte à rebours jusqu'à la prochaine prière
+    function updateCountdown() {
+        var now = new Date();
+        var currentTime = now.getHours() * 60 + now.getMinutes();
+
+        var fajrTime = convertTimeStringToMinutes('{{ prayer_times["Fajr"] }}');
+        var mosqueTime = convertTimeStringToMinutes('{{ prayer_times["Prière à la mosquée"] }}');
+        var sunriseTime = convertTimeStringToMinutes('{{ prayer_times["Levé du soleil"] }}');
+        var dhuhrTime = convertTimeStringToMinutes('{{ prayer_times["Dhuhr"] }}');
+        var asrTime = convertTimeStringToMinutes('{{ prayer_times["Asr"] }}');
+        var maghribTime = convertTimeStringToMinutes('{{ prayer_times["Maghrib"] }}');
+        var ishaTime = convertTimeStringToMinutes('{{ prayer_times["Isha"] }}');
+
+        var nextPrayerTimes = [
+            { name: 'Fajr', time: fajrTime },
+            { name: 'Prière à la mosquée', time: mosqueTime },
+            { name: 'Levé du soleil', time: sunriseTime },
+            { name: 'Dhuhr', time: dhuhrTime },
+            { name: 'Asr', time: asrTime },
+            { name: 'Maghrib', time: maghribTime },
+            { name: 'Isha', time: ishaTime }
+        ];
+
+        var nextPrayer;
+        for (var i = 0; i < nextPrayerTimes.length; i++) {
+            if (currentTime < nextPrayerTimes[i].time) {
+                nextPrayer = nextPrayerTimes[i];
+                break;
+            }
+        }
+
+        if (nextPrayer) {
+            var nextPrayerTime = nextPrayer.time;
+            var timeUntilPrayer = nextPrayerTime - currentTime;
+            var hours = Math.floor(timeUntilPrayer / 60);
+            var minutes = timeUntilPrayer % 60;
+
+            var countdownElement = document.getElementById('countdown');
+            countdownElement.textContent = 'Prochaine prière (' + nextPrayer.name + ') dans ' + hours + 'h ' + minutes + 'min';
+        } else {
+            var countdownElement = document.getElementById('countdown');
+            countdownElement.textContent = 'Fin des prières pour aujourd\'hui';
+        }
+    }
+
+    setInterval(updateCountdown, 1000); // Mettre à jour le compte à rebours chaque seconde
+
+    // Appel initial de la fonction pour s'assurer que le compte à rebours est affiché dès le chargement de la page
+    updateCountdown();
+
+    var quranVerseContainer = document.getElementById('quran-verse-container');
+
+var quranVerseElement = document.getElementById('quran-verse');
+
+var verseText = quranVerseElement.innerHTML;
+
+
+quranVerseElement.innerHTML = ''; // Vide le contenu de l'élément #quran-verse
+
+
+// Définit la fonction pour mettre à jour le contenu de l'élément #quran-verse
+
+function updateQuranVerse() {
+
+    quranVerseElement.innerHTML = verseText; // Met à jour le contenu de l'élément #quran-verse
+
+}
+
+
+// Appel la fonction pour mettre à jour le contenu de l'élément #quran-verse
+
+updateQuranVerse();
+    </script>
+</body>
+</html>
