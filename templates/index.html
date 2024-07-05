@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horaires de Prières</title>
     <style>
+        /* Ajustement des marges et des dimensions pour les écrans de télévision */
         body {
-            height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
             display: flex;
@@ -17,17 +17,22 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
+            color: antiquewhite;
             padding: 5px;
             box-sizing: border-box;
-            color: antiquewhite;
+            height: 100vh;
+            overflow: hidden; /* Pour éviter le défilement */
         }
+
         .container {
-            max-width: 1200px;
+            max-width: 100vw; /* Utiliser toute la largeur de l'écran */
             width: 100%;
+            padding: 0; /* Supprimer les marges internes */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .header {
             width: 100%;
             display: flex;
@@ -35,129 +40,104 @@
             align-items: center;
             margin-bottom: 5px;
         }
+
         .header img {
-            height: 150px;
-            margin-top:20px
+            height: 10vh; /* Ajuster la taille de l'image en fonction de la hauteur de l'écran */
+            margin-top: 1vh;
         }
+
         #title {
-            font-size: 3em;
+            font-size: 2.5vw; /* Utiliser vw pour adapter la taille du texte */
             text-align: center;
-            margin-top: 20px;
+            margin-top: 2vh;
         }
+
         #current-time {
-            font-size: 4em;
-            margin-top:20px;
-            margin-right:-20px;
+            font-size: 4vw; /* Utiliser vw pour adapter la taille du texte */
+            margin-top: 2vh;
+            margin-right: -2vw;
         }
+
         #date-info {
-            font-size: 3em;
+            font-size: 3vw; /* Utiliser vw pour adapter la taille du texte */
             text-align: center;
-            margin-top:50px;
+            margin-top: 5vh;
         }
+
         .prayer-grid {
             display: flex;
             flex-wrap: wrap;
-            justify-content: left;
-            gap: 1px;
-            margin-top: 80px;
-            margin-left:-55px;
-            margin-right:-45px;
+            justify-content: center; /* Centrer le contenu */
+            gap: 1vw; /* Utiliser vw pour ajuster l'espacement */
+            margin-top: 8vh;
         }
+
         .prayer-box {
-            width: 175px;
-            height: 210px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: left;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            font-size: 1.10em;
-            color: black;
-        }
-        .prayer-box h3 {
-            margin: 5px 0;
-            font-size: 1.3em;
-            color: black;
-        }
-        .prayer-box p {
-            margin: 35px 0;
-            font-size: 1.8em;
-            color: black;
-        }
-        
-        .highlight {
-            background-color: #1da006; /* Couleur de surbrillance */
-        }
-        #countdown {
-            font-size: 2.5em;
+            width: 15vw; /* Utiliser vw pour ajuster la taille des boîtes */
+            height: 20vh; /* Utiliser vh pour ajuster la hauteur */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center; /* Ajout pour centrer le texte horizontalement */
-            margin-top: 10px; /* Ajustement optionnel du margin-top pour l'espacement */
-}
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.5vw; /* Utiliser vw pour adapter la taille du texte */
+            color: black;
+        }
 
-#quran-verse-container {
+        .prayer-box h3 {
+            margin: 0.5vh 0;
+            font-size: 2vw; /* Utiliser vw pour adapter la taille du texte */
+            color: black;
+        }
 
-width: 100%;
+        .prayer-box p {
+            margin: 1vh 0;
+            font-size: 2.5vw; /* Utiliser vw pour adapter la taille du texte */
+            color: black;
+        }
 
-overflow: normal;
+        .highlight {
+            background-color: #1da006; /* Couleur de surbrillance */
+        }
 
-position: relative;
+        #countdown {
+            font-size: 3vw; /* Utiliser vw pour adapter la taille du texte */
+            margin-top: 3vh;
+        }
 
-color: #ffffff;
+        #quran-verse-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            color: #ffffff;
+            padding: 1vh;
+            text-align: center;
+            margin-top: 10vh;
+            white-space: nowrap; /* Assure que le texte reste sur une seule ligne */
+        }
 
-padding: 1px;
+        #quran-verse {
+            display: inline-block;
+            white-space: nowrap; /* Empêche le retour à la ligne */
+            position: absolute; /* Nécessaire pour le défilement */
+            left: 100%; /* Le texte commence à l'extérieur du conteneur */
+            animation: scroll-quran-verse 30s linear infinite; /* Animation continue */
+        }
 
-text-align: center;
+        @keyframes scroll-quran-verse {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
 
-margin-top: 10px;
-
-}
-
-
-#quran-verse {
-
-font-size: 2.5em;
-
-position: absolute;
-
-top: 0;
-
-left: 0;
-
-width: 200%; /* Augmente la largeur de l'élément */
-
-height: 200px; /* Définit une hauteur pour l'élément */
-
-white-space: normal; /* Définit comment le texte doit être affiché */
-
-overflow: auto; /* Définit comment le texte doit être affiché lorsque la largeur de l'élément est dépassée */
-
-animation: scroll-quran-verse 30s linear infinite;
-
-}
-
-@keyframes scroll-quran-verse {
-
-0% {
-
-    transform: translateX(0);
-
-}
-
-100% {
-
-    transform: translateX(-100%);
-
-}
-
-}
-
+        /* Media Queries pour ajuster le design spécifiquement pour les télévisions */
+        @media (min-width: 1280px) {
+            body {
+                font-size: 1.2vw; /* Augmenter la taille de base des polices pour les écrans larges */
+            }
+        }
     </style>
 </head>
 <body>
@@ -206,7 +186,7 @@ animation: scroll-quran-verse 30s linear infinite;
         <p><div id="countdown"></div></p>
         <div id="quran-verse-container">
             <p id="quran-verse">
-                وَقَالَ رَبُّكُمُ ٱدْعُونِىٓ أَسْتَجِبْ لَكُمْ ۚ إِنَّ ٱلَّذِينَ يَسْتَكْبِرُونَ عَنْ عِبَادَتِى سَيَدْخُلُونَ جَهَنَّمَ دَاخِرِينَ <br> Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
+                وَقَالَ رَبُّكُمُ ٱدْعُونِىٓ أَسْتَجِبْ لَكُمْ ۚ إِنَّ ٱلَّذِينَ يَسْتَكْبِرُونَ عَنْ عِبَادَتِى سَيَدْخُلُونَ جَهَنَّمَ دَاخِرِينَ  Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
             </p>
         </div>
         
