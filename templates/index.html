@@ -64,8 +64,8 @@
             margin-right:-45px;
         }
         .prayer-box {
-            width: 230px;
-            height: 250px;
+            width: 175px;
+            height: 210px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -74,7 +74,7 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            font-size: 1.3em;
+            font-size: 1.10em;
             color: black;
         }
         .prayer-box h3 {
@@ -84,7 +84,7 @@
         }
         .prayer-box p {
             margin: 35px 0;
-            font-size: 2em;
+            font-size: 1.8em;
             color: black;
         }
         
@@ -92,7 +92,7 @@
             background-color: #1da006; /* Couleur de surbrillance */
         }
         #countdown {
-            font-size: 3em;
+            font-size: 2.5em;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -122,7 +122,7 @@ margin-top: 10px;
 
 #quran-verse {
 
-font-size: 2.5em;
+font-size: 1.8em;
 
 position: absolute;
 
@@ -170,35 +170,35 @@ animation: scroll-quran-verse 30s linear infinite;
         <div id="date-info">
             Aujourd'hui : <span id="gregorian-date"></span> - <span id="hijri-date"></span>
         </div>
-        {% if prayer_times %}
+        
         <div class="prayer-grid">
             <div class="prayer-box fajr">
                 <h3>Fajr</h3>
-                <p>{{ prayer_times["Fajr"] }}</p>
+                <p>03:45:00</p>
             </div>
             <div class="prayer-box mosque">
                 <h3>Prière mosquée</h3>
-                <p>{{ prayer_times["Prière à la mosquée"] }}</p>
+                <p>04:45:00</p>
             </div>
             <div class="prayer-box sunrise">
                 <h3>Levé du soleil</h3>
-                <p>{{ prayer_times["Levé du soleil"] }}</p>
+                <p>05:35:00</p>
             </div>
             <div class="prayer-box dhuhr">
                 <h3>Dhuhr</h3>
-                <p>{{ prayer_times["Dhuhr"] }}</p>
+                <p>13:41:00</p>
             </div>
             <div class="prayer-box asr">
                 <h3>Asr</h3>
-                <p>{{ prayer_times["Asr"] }}</p>
+                <p>17:53:00</p>
             </div>
             <div class="prayer-box maghrib">
                 <h3>Maghrib</h3>
-                <p>{{ prayer_times["Maghrib"] }}</p>
+                <p>21:37:00</p>
             </div>
             <div class="prayer-box isha">
                 <h3>Isha</h3>
-                <p>{{ prayer_times["Isha"] }}</p>
+                <p>23:07:00</p>
             </div>
         
             
@@ -206,14 +206,11 @@ animation: scroll-quran-verse 30s linear infinite;
         <p><div id="countdown"></div></p>
         <div id="quran-verse-container">
             <p id="quran-verse">
-                وَقَالَ رَبُّكُمُ ٱدْعُونِىٓ أَسْتَجِبْ لَكُمْ ۚ إِنَّ ٱلَّذِينَ يَسْتَكْبِرُونَ عَنْ عِبَادَتِى سَيَدْخُلُونَ جَهَنَّمَ دَاخِرِينَ<br>Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
+                Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
             </p>
         </div>
         
-        {% else %}
         
-        <p>Aucune donnée disponible pour aujourd'hui.</p>
-        {% endif %}
     </div>
     
     
@@ -256,13 +253,13 @@ animation: scroll-quran-verse 30s linear infinite;
             var currentTime = hours * 60 + minutes;
 
             // Convertir les heures de prière en minutes depuis minuit
-            var fajrTime = convertTimeStringToMinutes('{{ prayer_times["Fajr"] }}');
-            var mosqueTime = convertTimeStringToMinutes('{{ prayer_times["Prière à la mosquée"] }}');
-            var sunriseTime = convertTimeStringToMinutes('{{ prayer_times["Levé du soleil"] }}');
-            var dhuhrTime = convertTimeStringToMinutes('{{ prayer_times["Dhuhr"] }}');
-            var asrTime = convertTimeStringToMinutes('{{ prayer_times["Asr"] }}');
-            var maghribTime = convertTimeStringToMinutes('{{ prayer_times["Maghrib"] }}');
-            var ishaTime = convertTimeStringToMinutes('{{ prayer_times["Isha"] }}');
+            var fajrTime = convertTimeStringToMinutes('03:45:00');
+            var mosqueTime = convertTimeStringToMinutes('04:45:00');
+            var sunriseTime = convertTimeStringToMinutes('05:35:00');
+            var dhuhrTime = convertTimeStringToMinutes('13:41:00');
+            var asrTime = convertTimeStringToMinutes('17:53:00');
+            var maghribTime = convertTimeStringToMinutes('21:37:00');
+            var ishaTime = convertTimeStringToMinutes('23:07:00');
 
             var prayerTimes = [
                 { name: 'Fajr', time: fajrTime },
@@ -316,13 +313,13 @@ animation: scroll-quran-verse 30s linear infinite;
         var now = new Date();
         var currentTime = now.getHours() * 60 + now.getMinutes();
 
-        var fajrTime = convertTimeStringToMinutes('{{ prayer_times["Fajr"] }}');
-        var mosqueTime = convertTimeStringToMinutes('{{ prayer_times["Prière à la mosquée"] }}');
-        var sunriseTime = convertTimeStringToMinutes('{{ prayer_times["Levé du soleil"] }}');
-        var dhuhrTime = convertTimeStringToMinutes('{{ prayer_times["Dhuhr"] }}');
-        var asrTime = convertTimeStringToMinutes('{{ prayer_times["Asr"] }}');
-        var maghribTime = convertTimeStringToMinutes('{{ prayer_times["Maghrib"] }}');
-        var ishaTime = convertTimeStringToMinutes('{{ prayer_times["Isha"] }}');
+        var fajrTime = convertTimeStringToMinutes('03:45:00');
+        var mosqueTime = convertTimeStringToMinutes('04:45:00');
+        var sunriseTime = convertTimeStringToMinutes('05:35:00');
+        var dhuhrTime = convertTimeStringToMinutes('13:41:00');
+        var asrTime = convertTimeStringToMinutes('17:53:00');
+        var maghribTime = convertTimeStringToMinutes('21:37:00');
+        var ishaTime = convertTimeStringToMinutes('23:07:00');
 
         var nextPrayerTimes = [
             { name: 'Fajr', time: fajrTime },
