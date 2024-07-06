@@ -5,139 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horaires de Prières</title>
     <style>
-        /* Ajustement des marges et des dimensions pour les écrans de télévision */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background-image: url('public/images/background2.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            color: antiquewhite;
-            padding: 5px;
-            box-sizing: border-box;
-            height: 100vh;
-            overflow: hidden; /* Pour éviter le défilement */
-        }
+ /* Body Styles */
+body {
+  height: 100vh;  /* Use viewport height for full screen */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-image: url('public/images/background2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: antiquewhite;
+}
 
-        .container {
-            max-width: 100vw; /* Utiliser toute la largeur de l'écran */
-            width: 100%;
-            padding: 0; /* Supprimer les marges internes */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+/* Container Styles */
+.container {
+  max-width: 80%;  /* Adjust for better layout on TV */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-        .header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
+/* Header Styles */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
 
-        .header img {
-            height: 10vh; /* Ajuster la taille de l'image en fonction de la hauteur de l'écran */
-            margin-top: 1vh;
-        }
+.header img {
+  height: 10vh;  /* Adjust image size for TV */
+  margin-top: 20px;
+}
 
-        #title {
-            font-size: 2.5vw; /* Utiliser vw pour adapter la taille du texte */
-            text-align: center;
-            margin-top: 2vh;
-        }
+/* Title Styles */
+#title {
+  font-size: 5rem;  /* Increase font size for better visibility */
+  text-align: center;
+  margin-top: 20px;
+}
 
-        #current-time {
-            font-size: 4vw; /* Utiliser vw pour adapter la taille du texte */
-            margin-top: 2vh;
-            margin-right: -2vw;
-        }
+/* Current Time Styles */
+#current-time {
+  font-size: 6rem;   /* Increase font size for better visibility */
+  margin-top: 20px;
+  margin-right: -20px;
+}
 
-        #date-info {
-            font-size: 3vw; /* Utiliser vw pour adapter la taille du texte */
-            text-align: center;
-            margin-top: 5vh;
-        }
+/* Date Info Styles */
+#date-info {
+  font-size: 4rem;   /* Increase font size for better visibility */
+  text-align: center;
+  margin-top: 50px;
+}
 
-        .prayer-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center; /* Centrer le contenu */
-            gap: 1vw; /* Utiliser vw pour ajuster l'espacement */
-            margin-top: 8vh;
-        }
+/* Prayer Grid Styles */
+.prayer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 1px;
+  margin-top: 80px;
+  /* Reduce margins for better layout on TV (optional): */
+  /* margin-left: -55px;
+  margin-right: -45px; */
+}
 
-        .prayer-box {
-            width: 15vw; /* Utiliser vw pour ajuster la taille des boîtes */
-            height: 20vh; /* Utiliser vh pour ajuster la hauteur */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            font-size: 1.5vw; /* Utiliser vw pour adapter la taille du texte */
-            color: black;
-        }
+/* Prayer Box Styles */
+.prayer-box {
+  width: 25vw;  /* Use viewport width for responsive sizing */
+  height: 30vh;  /* Use viewport height for responsive sizing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 2rem;  /* Increase font size for better readability */
+  color: black;
+}
 
-        .prayer-box h3 {
-            margin: 0.5vh 0;
-            font-size: 2vw; /* Utiliser vw pour adapter la taille du texte */
-            color: black;
-        }
+.prayer-box h3 {
+  margin: 5px 0;
+  font-size: 2.5rem;  /* Increase font size for better readability */
+  color: black;
+}
 
-        .prayer-box p {
-            margin: 1vh 0;
-            font-size: 2.5vw; /* Utiliser vw pour adapter la taille du texte */
-            color: black;
-        }
+.prayer-box p {
+  margin: 10px 0;  /* Adjust margin for better spacing */
+  font-size: 3rem;   /* Increase font size for better readability */
+  color: black;
+}
 
-        .highlight {
-            background-color: #1da006; /* Couleur de surbrillance */
-        }
+/* Highlight Styles */
+.highlight {
+  background-color: #1da006;
+}
 
-        #countdown {
-            font-size: 3vw; /* Utiliser vw pour adapter la taille du texte */
-            margin-top: 3vh;
-        }
+/* Countdown Styles */
+#countdown {
+  font-size: 15vh;   /* Adjust font size based on preference */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+}
 
-        #quran-verse-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            color: #ffffff;
-            padding: 1vh;
-            text-align: center;
-            margin-top: 10vh;
-            white-space: nowrap; /* Assure que le texte reste sur une seule ligne */
-        }
+/* Quran Verse Container Styles */
+#quran-verse-container {
+  width: 100%;
+  overflow: normal;
+  position: relative;
+  color: #ffffff;
+  padding: 1px;
+  text-align: center;
+  
+}
 
-        #quran-verse {
-            display: inline-block;
-            white-space: nowrap; /* Empêche le retour à la ligne */
-            position: absolute; /* Nécessaire pour le défilement */
-            left: 100%; /* Le texte commence à l'extérieur du conteneur */
-            animation: scroll-quran-verse 30s linear infinite; /* Animation continue */
-        }
 
-        @keyframes scroll-quran-verse {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+/* Quran Verse Styles */
+#quran-verse {
+  font-size: 2.5rem;  /* Increase font size for better readability on TV */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;  /* Use full width for better layout on TV */
+  height: 30vh;  /* Use viewport height for responsive sizing */
+  white-space: nowrap; /* Remove whitespace and prevent line breaks */
+  overflow: auto;
+  animation: scroll-quran-verse 30s linear infinite;
+}
 
-        /* Media Queries pour ajuster le design spécifiquement pour les télévisions */
-        @media (min-width: 1280px) {
-            body {
-                font-size: 1.2vw; /* Augmenter la taille de base des polices pour les écrans larges */
-            }
-        }
+
+@keyframes scroll-quran-verse {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
     </style>
 </head>
 <body>
@@ -186,7 +205,7 @@
         <p><div id="countdown"></div></p>
         <div id="quran-verse-container">
             <p id="quran-verse">
-                وَقَالَ رَبُّكُمُ ٱدْعُونِىٓ أَسْتَجِبْ لَكُمْ ۚ إِنَّ ٱلَّذِينَ يَسْتَكْبِرُونَ عَنْ عِبَادَتِى سَيَدْخُلُونَ جَهَنَّمَ دَاخِرِينَ  Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
+                Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
             </p>
         </div>
         
