@@ -5,156 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horaires de Prières</title>
     <style>
- /* Body Styles */
-body {
-  height: 100vh;  /* Use viewport height for full screen */
-  margin: 0;
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background-image: url('public/images/background2.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  color: antiquewhite;
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: url('public/images/background2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 5px;
+            box-sizing: border-box;
+            color: antiquewhite;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .header img {
+            height: 150px;
+            margin-top:20px
+        }
+        #title {
+            font-size: 3em;
+            text-align: center;
+            margin-top: 20px;
+        }
+        #current-time {
+            font-size: 4em;
+            margin-top:20px;
+            margin-right:-20px;
+        }
+        #date-info {
+            font-size: 3em;
+            text-align: center;
+            margin-top:50px;
+        }
+        .prayer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: left;
+            gap: 1px;
+            margin-top: 80px;
+            margin-left:-55px;
+            margin-right:-45px;
+        }
+        .prayer-box {
+            width: 175px;
+            height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: left;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 1.10em;
+            color: black;
+        }
+        .prayer-box h3 {
+            margin: 5px 0;
+            font-size: 1.3em;
+            color: black;
+        }
+        .prayer-box p {
+            margin: 35px 0;
+            font-size: 1.8em;
+            color: black;
+        }
+        
+        .highlight {
+            background-color: #1da006; /* Couleur de surbrillance */
+        }
+        #countdown {
+            font-size: 2.5em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center; /* Ajout pour centrer le texte horizontalement */
+            margin-top: 10px; /* Ajustement optionnel du margin-top pour l'espacement */
 }
 
-/* Container Styles */
-.container {
-  max-width: 80%;  /* Adjust for better layout on TV */
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Header Styles */
-.header {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.header img {
-  height: 10vh;  /* Adjust image size for TV */
-  margin-top: 20px;
-}
-
-/* Title Styles */
-#title {
-  font-size: 5rem;  /* Increase font size for better visibility */
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* Current Time Styles */
-#current-time {
-  font-size: 6rem;   /* Increase font size for better visibility */
-  margin-top: 20px;
-  margin-right: -20px;
-}
-
-/* Date Info Styles */
-#date-info {
-  font-size: 4rem;   /* Increase font size for better visibility */
-  text-align: center;
-  margin-top: 50px;
-}
-
-/* Prayer Grid Styles */
-.prayer-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  gap: 1px;
-  margin-top: 80px;
-  /* Reduce margins for better layout on TV (optional): */
-  /* margin-left: -55px;
-  margin-right: -45px; */
-}
-
-/* Prayer Box Styles */
-.prayer-box {
-  width: 25vw;  /* Use viewport width for responsive sizing */
-  height: 30vh;  /* Use viewport height for responsive sizing */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: left;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 2rem;  /* Increase font size for better readability */
-  color: black;
-}
-
-.prayer-box h3 {
-  margin: 5px 0;
-  font-size: 2.5rem;  /* Increase font size for better readability */
-  color: black;
-}
-
-.prayer-box p {
-  margin: 10px 0;  /* Adjust margin for better spacing */
-  font-size: 3rem;   /* Increase font size for better readability */
-  color: black;
-}
-
-/* Highlight Styles */
-.highlight {
-  background-color: #1da006;
-}
-
-/* Countdown Styles */
-#countdown {
-  font-size: 15vh;   /* Adjust font size based on preference */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* Quran Verse Container Styles */
 #quran-verse-container {
-  width: 100%;
-  overflow: normal;
-  position: relative;
-  color: #ffffff;
-  padding: 1px;
-  text-align: center;
-  
+
+width: 100%;
+
+overflow: normal;
+
+position: relative;
+
+color: #ffffff;
+
+padding: 1px;
+
+text-align: center;
+
+margin-top: 10px;
+
 }
 
 
-/* Quran Verse Styles */
 #quran-verse {
-  font-size: 2.5rem;  /* Increase font size for better readability on TV */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;  /* Use full width for better layout on TV */
-  height: 30vh;  /* Use viewport height for responsive sizing */
-  white-space: nowrap; /* Remove whitespace and prevent line breaks */
-  overflow: auto;
-  animation: scroll-quran-verse 30s linear infinite;
-}
 
+font-size: 1.8em;
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+width: 200%; /* Augmente la largeur de l'élément */
+
+height: 200px; /* Définit une hauteur pour l'élément */
+
+white-space: normal; /* Définit comment le texte doit être affiché */
+
+overflow: auto; /* Définit comment le texte doit être affiché lorsque la largeur de l'élément est dépassée */
+
+animation: scroll-quran-verse 30s linear infinite;
+
+}
 
 @keyframes scroll-quran-verse {
-  0% {
-    transform: translateX(0);
-  }
 
-  100% {
+0% {
+
+    transform: translateX(0);
+
+}
+
+100% {
+
     transform: translateX(-100%);
-  }
+
+}
+
 }
 
     </style>
