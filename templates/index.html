@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             text-align: center;
             background-image: url('public/images/background2.jpg');
@@ -23,7 +23,6 @@
             color: antiquewhite;
         }
         .container {
-            max-width: 95%;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -37,14 +36,14 @@
             margin-bottom: 10px;
         }
         .header img {
-            height: 15vh;
-            max-height: 150px;
+            height: 10vh;
+            max-height: 80px;
             margin-top: 20px;
         }
         #title {
             font-size: 4vw;
             text-align: center;
-            margin: 20px 0;
+            margin: 0 10px;
         }
         #current-time {
             font-size: 6vw;
@@ -60,12 +59,12 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1vw;
-            margin-top: 5vh;
+            width: 100%;
         }
         .prayer-box {
-            width: 25vw;
-            max-width: 300px;
-            height: 30vh;
+            flex: 1 1 calc(33.33% - 2vw);
+            max-width: 30%;
+            height: 25vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,7 +80,7 @@
         }
         .prayer-box h3 {
             margin: 5px 0;
-            font-size: 1.8em;
+            font-size: 2em;
             color: black;
         }
         .prayer-box p {
@@ -123,9 +122,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src='public/images/logo_cibs.jpg'>
+            <img src='public/images/logo_cibs.jpg' alt="Logo">
             <div id="title">CENTRE ISLAMIQUE DES BALKANAIS DE SION</div>
-            <div id="current-time">20:27</div> <!-- Suppression des secondes -->
+            <div id="current-time">20:27</div>
         </div>
         <div id="date-info">
             Aujourd'hui : <span id="gregorian-date"></span> - <span id="hijri-date"></span>
@@ -134,34 +133,34 @@
         <div class="prayer-grid">
             <div class="prayer-box fajr">
                 <h3>Fajr</h3>
-                <p>03:45:00</p>
+                <p>03:45</p>
             </div>
             <div class="prayer-box mosque">
                 <h3>Prière mosquée</h3>
-                <p>04:45:00</p>
+                <p>04:45</p>
             </div>
             <div class="prayer-box sunrise">
                 <h3>Levé du soleil</h3>
-                <p>05:35:00</p>
+                <p>05:35</p>
             </div>
             <div class="prayer-box dhuhr">
                 <h3>Dhuhr</h3>
-                <p>13:41:00</p>
+                <p>13:41</p>
             </div>
             <div class="prayer-box asr">
                 <h3>Asr</h3>
-                <p>17:53:00</p>
+                <p>17:53</p>
             </div>
             <div class="prayer-box maghrib">
                 <h3>Maghrib</h3>
-                <p>21:37:00</p>
+                <p>21:37</p>
             </div>
             <div class="prayer-box isha">
                 <h3>Isha</h3>
-                <p>23:07:00</p>
+                <p>23:07</p>
             </div>
         </div>
-        <p><div id="countdown"></div></p>
+        <div id="countdown"></div>
         <div id="quran-verse-container">
             <p id="quran-verse">
                 Et ton Seigneur dit : "Invoquez-Moi, Je vous répondrai. Ceux qui, par orgueil, se refusent à M'adorer entreront bientôt dans l'Enfer, humiliés." (Sourate Ghafir, 40:60)
@@ -184,8 +183,8 @@
         function updateDateInfo() {
             var formattedGregorianDate = getFormattedDate();
             var hijriDate = convertToHijri(new Date());
-            var dateInfoElement = document.getElementById('date-info');
-            dateInfoElement.innerHTML = formattedGregorianDate + ' - ' + hijriDate;
+            document.getElementById('gregorian-date').textContent = formattedGregorianDate;
+            document.getElementById('hijri-date').textContent = hijriDate;
         }
 
         setInterval(updateTime, 60000); 
